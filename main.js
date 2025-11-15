@@ -8,6 +8,16 @@ async function getProducts() {
   return products;
 }
 
+function swapStations() {
+  const fromInput = document.getElementById('from');
+  const toInput = document.getElementById('to');
+  [fromInput.value, toInput.value] = [toInput.value, fromInput.value];
+}
+
+function toCash()
+{
+  window.location.href = "cart.html";
+}
 
 function getCardHTML(product) {
   return `<div class="card" style="width: 250px;">

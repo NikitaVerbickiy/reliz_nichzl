@@ -16,14 +16,24 @@ crossorigin="anonymous">
 </head>
 <body>
   <header>
-    <div class="logo"></div>
+    <div class="up_panel">
+      <div class="logo">
+        <img src="img/logotype.png" width="150">
+      </div>
+
+      <div class="cash">Кошик</div>
+      <button class="button_cash" onclick="toCash()">
+        <img src="img/cash.png">
+      </button>
+    </div>
+
   </header>
 
   <div class="search-block">
   <div class="search-bar">
     <input id="from" list="stations-from" placeholder="Звідки (напр. Нітополіс)" />
 
-    <div class="buttonChange">-</div>
+    <div class="buttonChange" onclick="swapStations()">⬌</div>
 
     <input id="to" list="stations-to" placeholder="Куди (напр. Водяне)" />
 
