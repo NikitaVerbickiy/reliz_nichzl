@@ -1,3 +1,14 @@
+function getCookieValue(name) {
+  let matches = document.cookie.match(
+    new RegExp(
+      "(?:^|; )" +
+        name.replace(/([.$?*|{}()[]\\/+^])/g, "\\$1") +
+        "=([^;]*)"
+    )
+  );
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
 // Оголошуємо асинхронну функцію для отримання продуктів з сервера
 async function getProducts() {
   // Виконуємо запит до файлу "store_db.json" та очікуємо на відповідь
@@ -66,8 +77,19 @@ class ShoppingCart {
       this.items = JSON.parse(cartCookie);
     }
   }
+
+  calculateTotal() {
+  let total = 0;
+  for (let key in this.items) {
+    total += this.items[key].price * this.items[key].quantity;
+  }
+  this.total = total;
+  return total;
+}
+
 }
 let cart = new ShoppingCart(); // Створення об'єкта кошика
+cart.loadCartFromCookies();
 
 
 function addToCart(event) {
@@ -117,10 +139,8 @@ function get_item(item) {
 function showCartList() {
   cart_list.innerHTML = "";
   for (let key in cart.items) {
-    // проходимося по всіх ключах об'єкта cart.items
     cart_list.innerHTML += get_item(cart.items[key]);
   }
-  cart_total.innerHTML = cart.calculateTotal();
 }
 
 
