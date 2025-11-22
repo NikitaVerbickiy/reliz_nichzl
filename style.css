@@ -120,9 +120,16 @@ header {
   width: 100%;
 }
 
+.button_main
+{
+  display: flex;
+}
+
 .up_panel_cash {
   text-align: center;
   position: absolute;
+  display: flex;
+  gap: 50px;
 }
 
 .results {
