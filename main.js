@@ -81,49 +81,46 @@ getProducts().then(function (products) {
   }
 });
 
-// Створення класу кошика
 class ShoppingCart {
   constructor() {
     this.items = {};
-    this.loadCartFromCookies(); // завантажуємо з кукі-файлів раніше додані в кошик товари
+    this.loadCartFromCookies();
   }
 
   // Додавання товару до кошика
   addItem(item) {
     if (this.items[item.title]) {
-      this.items[item.title].quantity += 1; // Якщо товар вже є, збільшуємо його кількість на одиницю
+      this.items[item.title].quantity += 1;
     } else {
-      this.items[item.title] = item; // Якщо товару немає в кошику, додаємо його
+      this.items[item.title] = item; 
       this.items[item.title].quantity = 1;
     }
     this.saveCartToCookies();
   }
 
-  // Зберігання кошика в кукі
   saveCartToCookies() {
     let cartJSON = JSON.stringify(this.items);
     document.cookie = `cart=${cartJSON}; max-age=${60 * 60 * 24 * 7}; path=/`;
   }
 
-  // Завантаження кошика з кукі
   loadCartFromCookies() {
     let cartCookie = getCookieValue("cart");
     if (cartCookie && cartCookie !== "") {
       this.items = JSON.parse(cartCookie);
     }
   }
-  // Обчислення загальної вартості товарів у кошику
+
   calculateTotal() {
     let total = 0;
     for (let key in this.items) {
-      // проходимося по всіх ключах об'єкта this.items
+
       total += this.items[key].price * this.items[key].quantity; // рахуємо вартість усіх товарів
     }
     return total;
   }
 
   clearCart() {
-    this.items = {}; // очищаємо об'єкт кошика
+    this.items = {};
     document.cookie = "cart=; max-age=0; path=/"; // видаляємо кукі
   }
 }
